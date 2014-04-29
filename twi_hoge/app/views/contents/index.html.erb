@@ -4,8 +4,19 @@
   <title>Favolater</title>
 </head>
 <body>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to "sample app", '#', id: "logo" %>
+    </div>
+  </div>
+</header>
+
+<h1>リツイートやつううううううううう</h1>
 ようこそ<%= render :text => @user %>。
-<%= link_to "Twitterでログインする", "auth/twitter" %>
+
+<%= link_to "Twitterでログインする", "auth/twitter" ,class: "btn btn-large btn-primary"%>
+
 </body>
 </html>
 
