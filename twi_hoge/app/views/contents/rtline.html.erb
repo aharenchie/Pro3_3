@@ -1,0 +1,32 @@
+<html>
+<head>
+</head>
+<body>
+hello world!!!!!!!!!!!
+
+
+
+<br>
+
+
+<% @output.each do | status | %>
+
+<%#= image_tag(status["image"]) %>
+
+<br>
+
+<%= auto_link(status["retweet"], html: { target: '_blank' }, link: :urls) %>
+
+
+<br>
+
+<hr>
+
+<% end %>
+
+
+
+
+</body>
+</html>
+
