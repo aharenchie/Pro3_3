@@ -22,7 +22,8 @@ class ContentsController < ApplicationController
 
 
 
-    options = {:count => 200,}
+    #options = {:count => 200,}
+    options = {:count => 20,}
     #@retlist = client.retweeted_by_user("white_iceage000",options) 
     @retlist = client.retweeted_by_user(session[:account_id],options) 
 
@@ -48,13 +49,14 @@ class ContentsController < ApplicationController
 
 
 
-      image_url=client.retweeted_by_user("white_iceage000")[0][:user].profile_image_uri
+      #image_url=client.retweeted_by_user("white_iceage000")[0][:user].profile_image_uri
+      image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
 
 
       data=Hash.new
       data["account"]=id
       data["retweet"]=text  
-###      data["image"]=image_url
+      data["image"]=image_url
 
       @output.push(data) 
  
