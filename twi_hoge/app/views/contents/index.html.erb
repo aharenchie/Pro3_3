@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Favolater</title>
+  <title>RT Collection</title>
 </head>
 <body>
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-      <%= link_to "sample app", '#', id: "logo" %>
-    </div>
-  </div>
-</header>
-
-<h1>リツイートやつううううううううう</h1>
-ようこそ<%= render :text => @user %>。
-
-<%= link_to "Twitterでログインする", "auth/twitter" ,class: "btn btn-large btn-primary"%>
-
+<center>
+<div class="jumbotron">
+  <h1>RT ColleRction</h1>
+  <p>TwitterのRTを集めて、表示するアプリです!</p>
+  <p><%= link_to "Sign up!", "auth/twitter",class:"btn btn-primary btn-lg"%></p>
+</div>
+</center>
 </body>
 </html>
 
