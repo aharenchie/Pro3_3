@@ -6,6 +6,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :screen_name
       t.string :name
 
+      t.string :token
+      t.string :token_secret
+
       t.timestamps
     end
   end
