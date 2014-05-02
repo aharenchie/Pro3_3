@@ -3,47 +3,66 @@
 </head>
 <body>
 
+
 <div class="navbar navbar-default">
 
+  <!--固定メニュー-->
   <div class="navbar-header">
-
+    
+    <!--レスポンシブデザイン使用時の線 -->
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
     
     <a class="navbar-brand" href="#">RT Collection</a>
+    
   </div>
   
-  <div class="navbar-collapse collapse navbar-responsive-collapse">
+  <!-- レスポンシブデザイン使用するメニュー-->
+  <div style="height: 1px;" class="navbar-collapse navbar-responsive-collapse collapse">
+  
+    <!-- 左側 -->
     <ul class="nav navbar-nav">
       <li><a href="#">RT</a></li>
       <li><a href="#">RT Ranking</a></li>
     </ul>
-      <ul class="nav navbar-nav navbar-right">
-	<li><a href="/">HOME</a></li>
-	<li><a href="#">Sign out</a></li>
-      </ul>
+    
+    <!--右側 -->
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/">HOME</a></li>
+      <li><a href="#">Sign out</a></li>
+    </ul>
+
   </div>
 </div>
 
 
 <% @output.each do | status | %>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<!--メインエリア -->
+<div class="container-fluid">
+  <!--入れ子 -->
+  <div class="row_fluid">
+    
     <div class="media">
-      <a class="pull-left">
-	<%= image_tag(status["image"]) %>
-      </a>
+      <!-- 左側に表示　-->
+      <a class="pull-left"><%= image_tag(status["image"]) %></a>
+      
       <div class="media-body">
+	<!--- 四角で囲む -->
 	<div class="well">
 	  <%= auto_link(status["retweet"], html: { target: '_blank' }, link: :urls) %>
 	</div>
       </div>
+
     </div>
+
   </div>
 </div>
+
+
 
 <% end %>
 
