@@ -8,6 +8,29 @@ class ContentsController < ApplicationController
   def index
   end
 
+
+
+  def check
+    #もしセッション変数user_idがなかったら
+    #if defined?(session[:account_id]).nil? then
+    if session[:account_id].nil? then
+      puts "hogehogehogehogehogehogehogehogehogehogehogehogehogehoge"
+      redirect_to '/auth/twitter'
+
+    else
+    #もしuser_idが存在してたら
+
+
+      #client.update("I'm tweeting with ruby-gem. test tweet.")
+      redirect_to '/contents/rtline', :notice => "認証しました！"
+
+    end      
+
+
+  end
+
+
+
   def rtline
 
 
@@ -19,11 +42,13 @@ class ContentsController < ApplicationController
       config.access_token_secret = session[:oauth_token_secret]
     end
 
-
+    puts session[:oauth_token]
+    puts session[:oauth_token_secret]
+    puts session[:account_id]
 
 
     #options = {:count => 200,}
-    options = {:count => 20,}
+    options = {:count => 50,}
     #@retlist = client.retweeted_by_user("white_iceage000",options) 
     @retlist = client.retweeted_by_user(session[:account_id],options) 
 
@@ -31,30 +56,14 @@ class ContentsController < ApplicationController
     @output=Array.new
 
     @retlist.each do | status |
-      # full_textを指定することで、省略せず全文ツイートを取得
+
       text = status[:full_text]
-      
-      #パターンマッチング。正規表現（最短マッチ）を使用
-      %r|@(.+?):| =~ text
-      p $1
-
-      id=$1
 
 
-      #%r|(http://(.[^\s]+))| =~ url
-
-      #fixed_text=text.gsub(/(http(s)?:\/\/(.[^\s]+))/,"<a href="+$2+">"+$2+"</a>")
-
-
-
-
-
-      #image_url=client.retweeted_by_user("white_iceage000")[0][:user].profile_image_uri
       image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
 
 
       data=Hash.new
-      data["account"]=id
       data["retweet"]=text  
       data["image"]=image_url
 
@@ -62,8 +71,6 @@ class ContentsController < ApplicationController
  
     end
      
-      print @output
- 
 
   end
 

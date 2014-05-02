@@ -6,13 +6,17 @@ Rails.application.routes.draw do
 
   root :to => 'contents#index'
 
-  get 'sessions/create'
+  #get 'sessions/create'
 
   get 'sessions/destroy'
 
   get  "/auth/twitter/callback" => "sessions#create"
 
-  get "contents/rtline"
+
+  
+  get "contents/check"
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
