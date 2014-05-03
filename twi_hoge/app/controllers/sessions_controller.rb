@@ -9,13 +9,17 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     session[:oauth_token] = auth['credentials']['token']
     session[:oauth_token_secret] = auth['credentials']['secret']
-    session[:account_id]=auth["info"]["nickname"]
-    
+    session[:uid]=auth["uid"]
+    session[:account_name]=auth["info"]["nickname"]
+   
+    pp auth
+
+ 
 =begin
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = 'cVC6GwGbXTVjbarYbswFJMOBW'
       config.consumer_secret     = 'ZwuMkmOrhVwMmx4YkNiyFVV0slyqwOVQA9KZQxUvyTvBhO0CRl'
-      config.access_token        = auth['credentials']['token']
+      config.access_lsaoken        = auth['credentials']['token']
       config.access_token_secret = auth['credentials']['secret']
     end
 =end
