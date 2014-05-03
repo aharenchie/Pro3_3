@@ -47,7 +47,7 @@ class ContentsController < ApplicationController
     #options = {:count => 200,}
     options = {:count => 50,}
     #@retlist = client.retweeted_by_user("white_iceage000",options) 
-    @retlist = client.retweeted_by_user(session[:account_id],options) 
+    @retlist = client.retweeted_by_user(session[:account_id],options).reverse
 
 
     @output=Array.new
@@ -68,15 +68,31 @@ class ContentsController < ApplicationController
 
 
 #ここからはデータベース操作
+      uid= status.attrs[:user][:id]
+      tid= status.attrs[:retweeted_status][:id]
 
-      uid = status.attrs[:user][:id]
-      tid = status.attrs[:retweeted_status][:id]
+
+=begin
+      t.string :uid
+      t.string :tweetid
+      t.string :time
+      t.string :re_uid
+      t.string :image
+      t.text :text
+=end
+
+      #hoge=TwiModel.new
+
+      if TwiModel.where(["uid = ? and tweetid = ?", uid,tid ]).empty?
+        model_data=TwiModel.new
+        model_data.uid = status.attrs[:user][:id]
+        model_data.tweetid = status.attrs[:retweeted_status][:id] 
+        model_data.time= status.attrs[:retweeted_status][:created_at]
+        model_data.re_uid= status.attrs[:retweeted_status][:user][:id]
+        model_data.image= status.attrs[:retweeted_status][:user][:profile_image_url]
+        model_data.text= status.attrs[:retweeted_status][:text]
 
 
-      if Model.where(["userid = ? and tweetid = ?", uid,tid ]).empty?
-        model_data=Model.new
-        model_data.userid=uid
-        model_data.tweetid=tid
         model_data.save 
       end
 
@@ -98,16 +114,21 @@ class ContentsController < ApplicationController
 #    print @tweet_info
 
       #models=Model.find(:all)
-      model=Model.new
-      models=Model.all
+      #model=Model.new
+      models=TwiModel.all.reverse
+
+      print models
+
 
       models.each do | i |
         data=Hash.new
-        data["userid"]= client.status(i.tweetid)[:user][:screen_name]
-        data["retweet"]= client.status(i.tweetid)[:user][:profile_image_url]
-        data["image"]= client.status(i.tweetid)[:text]
+        data["userid"]= i.re_uid
+        data["retweet"]= i.text
+        data["image"]= i.image
         @output.push(data)
       end
+
+      @output.reverse
 
   end 
 
