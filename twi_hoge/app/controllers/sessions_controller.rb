@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "pp"
 
 class SessionsController < ApplicationController
@@ -32,7 +33,8 @@ class SessionsController < ApplicationController
   def destroy
     #session[:user_id] = nil
     reset_session
-    #redirect_to '/', :notice => "認証を外しました"
+    #redirect_to '/sessions/destroy', :notice => "認証を外しました"
   end
+
 end
 
