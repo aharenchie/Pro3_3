@@ -60,10 +60,28 @@ class ContentsController < ApplicationController
       text = status[:full_text]
       #text = status[:retweeted_status][:text]
 
+
+
+
       @tw_data=Hash.new
       @tw_data["uid"]=status.attrs[:user][:id]
       @tw_data["tweet_id"]=status.attrs[:retweeted_status][:id]      
       @tweet_info.push(@tw_data)
+
+      uid = status.attrs[:user][:id]
+      tid = status.attrs[:retweeted_status][:id]
+
+
+      if Model.where(["userid = ? and tweetid = ?", uid,tid ]).empty?
+        model_data=Model.new
+        model_data.userid=uid
+        model_data.tweetid=tid
+        model_data.save 
+        print "this is testtttttttttttttttttttttttttt"
+      end
+
+
+
 
       image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
 
