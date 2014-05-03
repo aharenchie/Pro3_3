@@ -97,13 +97,15 @@ class ContentsController < ApplicationController
 
 #    print @tweet_info
 
-      models=Model.find(:all)
+      #models=Model.find(:all)
+      model=Model.new
+      models=Model.all
 
       models.each do | i |
         data=Hash.new
-        data["userid"]= client.status(i.tid)[:user][:screen_name]
-        data["retweet"]= client.status(i.tid)[:user][:profile_image_url]
-        data["image"]= client.status(i.tid)[:text]
+        data["userid"]= client.status(i.tweetid)[:user][:screen_name]
+        data["retweet"]= client.status(i.tweetid)[:user][:profile_image_url]
+        data["image"]= client.status(i.tweetid)[:text]
         @output.push(data)
       end
 
