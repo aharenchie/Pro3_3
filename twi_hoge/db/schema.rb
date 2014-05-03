@@ -11,11 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140503071658) do
+ActiveRecord::Schema.define(version: 20140503094124) do
 
   create_table "models", force: true do |t|
     t.string   "userid"
     t.string   "tweetid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "twi_models", force: true do |t|
+    t.string   "uid"
+    t.string   "tweetid"
+    t.string   "time"
+    t.string   "re_uid"
+    t.string   "image"
+    t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -25,6 +36,8 @@ ActiveRecord::Schema.define(version: 20140503071658) do
     t.string   "uid"
     t.string   "screen_name"
     t.string   "name"
+    t.string   "token"
+    t.string   "token_secret"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

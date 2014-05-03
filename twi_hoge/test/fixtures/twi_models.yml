@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uid: MyString
+  tweetid: MyString
+  time: MyString
+  re_uid: MyString
+  image: MyString
+  text: MyText
+
+two:
+  uid: MyString
+  tweetid: MyString
+  time: MyString
+  re_uid: MyString
+  image: MyString
+  text: MyText
