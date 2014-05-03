@@ -13,15 +13,12 @@ class ContentsController < ApplicationController
   def check
     #もしセッション変数user_idがなかったら
     #if defined?(session[:account_id]).nil? then
-    if session[:account_id].nil? then
-      puts "hogehogehogehogehogehogehogehogehogehogehogehogehogehoge"
+    if session[:uid].nil? then
       redirect_to '/auth/twitter'
 
     else
     #もしuser_idが存在してたら
 
-
-      #client.update("I'm tweeting with ruby-gem. test tweet.")
       redirect_to '/contents/rtline', :notice => "認証しました！"
 
     end      
@@ -44,8 +41,8 @@ class ContentsController < ApplicationController
 
     puts session[:oauth_token]
     puts session[:oauth_token_secret]
-    puts session[:account_id]
-
+    puts session[:uid]
+    puts session[:account_name]
 
     #options = {:count => 200,}
     options = {:count => 50,}
@@ -61,6 +58,7 @@ class ContentsController < ApplicationController
     @retlist.each do | status |
 
       text = status[:full_text]
+      #text = status[:retweeted_status][:text]
 
       @tw_data=Hash.new
       @tw_data["uid"]=status.attrs[:user][:id]
