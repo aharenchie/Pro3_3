@@ -17,7 +17,7 @@
       <span class="icon-bar"></span>
     </button>
     
-    <a class="navbar-brand" href="#">RT Collection</a>
+    <a class="navbar-brand">RT Collection</a>
     
   </div>
   
@@ -32,8 +32,8 @@
     
     <!--右側 -->
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/">HOME</a></li>
-      <li><a href="#">Sign out</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="sessions/destroy">Sign out</a></li>
     </ul>
 
   </div>
@@ -45,20 +45,21 @@
 <div class="container-fluid">
   <!--入れ子 -->
   <div class="row_fluid">
-    
-    <div class="media">
-      <!-- 左側に表示　-->
-      <a class="pull-left"><%= image_tag(status["image"]) %></a>
+    <div class="col-md-12 col-lg-12 col-sm-12" >
       
-      <div class="media-body">
-	<!--- 四角で囲む -->
-	<div class="well">
-	  <%= auto_link(status["retweet"], html: { target: '_blank' }, link: :urls) %>
+      <div class="media">
+	
+	<a class="pull-left"><%= image_tag(status["image"]) %></a>
+	
+	<div class="media-body">
+	  <!--- 四角で囲む -->
+	  <div class="well">
+	    <%= auto_link(status["retweet"], html: { target: '_blank' }, link: :urls) %>
+	  </div>
 	</div>
       </div>
 
     </div>
-
   </div>
 </div>
 

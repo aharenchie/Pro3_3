@@ -1,2 +1,46 @@
-<h1>Sessions#destroy</h1>
-セッション変数を無効にしました。ログイン情報は保持されていません。
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RT Collection</title>
+</head>
+<body>
+<div class="navbar navbar-default">
+
+  <!--固定メニュー-->
+  <div class="navbar-header">
+    
+    <!--レスポンシブデザイン使用時の線 -->
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+    </button>
+    
+    <a class="navbar-brand">RT Collection</a>
+    
+  </div>
+  
+  <!-- レスポンシブデザイン使用するメニュー-->
+  <div style="height: 1px;" class="navbar-collapse navbar-responsive-collapse collapse">
+    
+    <!--右側 -->
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/">Home</a></li>
+    </ul>
+
+  </div>
+</div>
+
+<center>
+  <div class="container-fluid">
+      <div class="row-fluid">
+	<div class="span4">
+	    <div class="jumbotron">
+	      <h1>RT Collection</h1>
+	      <p>ログアウトしました。</p>
+	      <p><%= link_to "HOME", "/",class:"btn btn-primary btn-lg"%></p>
+	    </div>
+	</div>
+      </div>
+  </div>
+</center>
+
+</body>

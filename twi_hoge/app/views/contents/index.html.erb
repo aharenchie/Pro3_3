@@ -4,17 +4,55 @@
   <title>RT Collection</title>
 </head>
 <body>
-<center>
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span4">
-      <div class="jumbotron">
-	<h1>RT ColleRction</h1>
-	<p>TwitterのRTを集めて、表示するアプリです!</p>
-	<p><%= link_to "Sign up!", "contents/check",class:"btn btn-primary btn-lg"%></p>
-      </div>
-    </div>
+<div class="navbar navbar-default">
+
+  <!--固定メニュー-->
+  <div class="navbar-header">
+    
+    <!--レスポンシブデザイン使用時の線 -->
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    
+    <a class="navbar-brand">RT Collection</a>
+    
+  </div>
+  
+  <!-- レスポンシブデザイン使用するメニュー-->
+  <div style="height: 1px;" class="navbar-collapse navbar-responsive-collapse collapse">
+  
+    <!-- 左側 -->
+    <ul class="nav navbar-nav">
+      <li><a href="#">RT</a></li>
+      <li><a href="#">RT Ranking</a></li>
+    </ul>
+    
+    <!--右側 -->
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/">Home</a></li>
+      <li><a href="sessions/destroy">Sign out</a></li>
+    </ul>
+
   </div>
 </div>
+
+<center>
+  <div class="container-fluid">
+      <div class="row-fluid">
+	<div class="span4">
+	  <div class="jumbotron">
+	    <h1>RT Collection</h1>
+	    <p>TwitterのRTを集めて、表示するアプリです!</p>
+	    <p><%= link_to "Sign up!", "contents/check",class:"btn btn-primary btn-lg"%></p>
+	  </div>
+	</div>
+      </div>
+  </div>
 </center>
+
+</body>
+</html>
 
