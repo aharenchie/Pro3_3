@@ -115,7 +115,12 @@ class ContentsController < ApplicationController
 
       #models=Model.find(:all)
       #model=Model.new
-      models=TwiModel.all.reverse
+
+
+
+
+      #models=TwiModel.all.reverse
+      models=TwiModel.all.where(["uid=?",session[:uid]]).reverse
 
       print models
 
