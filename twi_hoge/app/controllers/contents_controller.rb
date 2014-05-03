@@ -52,21 +52,22 @@ class ContentsController < ApplicationController
 
     @output=Array.new
 
-    @tweet_info = Array.new
+    #@tweet_info = Array.new
 
 
     @retlist.each do | status |
 
-      text = status[:full_text]
-      #text = status[:retweeted_status][:text]
+      #text = status[:full_text]
 
-
-
-
+=begin
       @tw_data=Hash.new
       @tw_data["uid"]=status.attrs[:user][:id]
       @tw_data["tweet_id"]=status.attrs[:retweeted_status][:id]      
       @tweet_info.push(@tw_data)
+=end
+
+
+#ここからはデータベース操作
 
       uid = status.attrs[:user][:id]
       tid = status.attrs[:retweeted_status][:id]
@@ -77,27 +78,38 @@ class ContentsController < ApplicationController
         model_data.userid=uid
         model_data.tweetid=tid
         model_data.save 
-        print "this is testtttttttttttttttttttttttttt"
       end
 
 
+#ここまで
+
+      #image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
 
 
-      image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
-
-
+=begin
       data=Hash.new
       data["retweet"]=text  
       data["image"]=image_url
 
       @output.push(data) 
- 
+=end 
     end
 
-    print @tweet_info
-     
+#    print @tweet_info
 
-  end
+      models=Model.find(:all)
+
+      models.each do | i |
+        data=Hash.new
+        data["userid"]= client.status(i.tid)[:user][:screen_name]
+        data["retweet"]= client.status(i.tid)[:user][:profile_image_url]
+        data["image"]= client.status(i.tid)[:text]
+        @output.push(data)
+      end
+
+  end 
+
+ 
 
 
 end
