@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :models
+
   get 'contents/index'
 
   get 'contents/rtline'

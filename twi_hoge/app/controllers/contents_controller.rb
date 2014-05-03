@@ -55,10 +55,17 @@ class ContentsController < ApplicationController
 
     @output=Array.new
 
+    @tweet_info = Array.new
+
+
     @retlist.each do | status |
 
       text = status[:full_text]
 
+      @tw_data=Hash.new
+      @tw_data["uid"]=status.attrs[:user][:id]
+      @tw_data["tweet_id"]=status.attrs[:retweeted_status][:id]      
+      @tweet_info.push(@tw_data)
 
       image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
 
@@ -70,6 +77,8 @@ class ContentsController < ApplicationController
       @output.push(data) 
  
     end
+
+    print @tweet_info
      
 
   end
