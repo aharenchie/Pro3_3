@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   get 'sessions/destroy'
 
   get  "/auth/twitter/callback" => "sessions#create"
-
+  
+  get 'contents/rtranking'
 
   
   get "contents/check"
