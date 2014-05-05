@@ -91,6 +91,7 @@ class ContentsController < ApplicationController
         model_data.re_uid= status.attrs[:retweeted_status][:user][:id]
         model_data.image= status.attrs[:retweeted_status][:user][:profile_image_url]
         model_data.text= status.attrs[:retweeted_status][:text]
+        model_data.ret_nickname= status.attrs[:retweeted_status][:user][:screen_name]
 
 
         model_data.save 
@@ -128,6 +129,7 @@ class ContentsController < ApplicationController
       models.each do | i |
         data=Hash.new
         data["userid"]= i.re_uid
+        data["nickname"]=i.ret_nickname
         data["retweet"]= i.text
         data["image"]= i.image
         @output.push(data)

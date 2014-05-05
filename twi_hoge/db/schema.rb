@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505062042) do
+ActiveRecord::Schema.define(version: 20140505080135) do
 
   create_table "models", force: true do |t|
     t.string   "userid"
@@ -19,9 +19,6 @@ ActiveRecord::Schema.define(version: 20140505062042) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "models", ["tweetid"], name: "hoge"
-  add_index "models", ["userid"], name: "uid"
 
   create_table "twi_models", force: true do |t|
     t.string   "uid"
@@ -32,7 +29,11 @@ ActiveRecord::Schema.define(version: 20140505062042) do
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "ret_nickname"
   end
+
+  add_index "twi_models", ["tweetid"], name: "index_twi_models_on_tweetid"
+  add_index "twi_models", ["uid"], name: "index_twi_models_on_uid"
 
   create_table "users", force: true do |t|
     t.string   "provider"
