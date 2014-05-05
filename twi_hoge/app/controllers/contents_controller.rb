@@ -99,13 +99,6 @@ class ContentsController < ApplicationController
 
 
 
-
-
-
-
-
-
-
 #ここまで
 
       #image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
@@ -131,8 +124,31 @@ class ContentsController < ApplicationController
       #models=TwiModel.all.reverse
 
 
+      #レコードを取得
+      record=TwiModel.all.where(["uid=?",session[:uid]])
+
+     
+
+
+
+      #ここからは上限から超えた分のデータを消去　 
+      if record.length > 20
+        del_count=record.length-20
+        #record.limit(del_count).delete_all 
+        #TwiModel.delete_all.where(["uid=?",session[:uid]]).limit(del_count)
+        #TwiModel.where(["uid=?",session[:uid]]).delete_all.limit(del_count)
+
+
+        #これが消去するための記述？ でも、逆向きに消去されてしまう　
+        #TwiModel.delete(TwiModel.where(:uid => session[:uid]).reverse_order.limit(del_count))
+      end
+
+
+
+
+      #取得したレコードをリバース（データベース格納のための整理)
+      #models=record.reverse
       models=TwiModel.all.where(["uid=?",session[:uid]]).reverse
-      #models=TwiModel.all.where(["uid=?",session[:uid]]).limit(5).reverse
 
       print models
 
