@@ -17,10 +17,7 @@
       </button>
       <!-- タイトル -->
       <a class="navbar-brand">RT Collection</a>
-      <p class="navbar-brand"><%= image_tag(session[:user_image])%></p>
-      <p class="navbar-text navbar-right"><%= session[:account_name]%></p>
     </div>
-
     
     <!-- レスポンシブデザイン使用するメニュー-->
     <div style="height: 1px;" class="navbar-collapse navbar-responsive-collapse collapse">
@@ -33,7 +30,7 @@
       <!--右側 -->
       <ul class="nav navbar-nav navbar-right">
 	<li><a href="/">Home</a></li>
-	<li><a href="sessions/destroy">Sign out</a></li>
+	<li><a href="/sessions/destroy">Sign out</a></li>
       </ul>    
     </div>
 
