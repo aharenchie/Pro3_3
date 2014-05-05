@@ -13,11 +13,9 @@ class SessionsController < ApplicationController
     session[:uid]=auth["uid"]
     session[:account_name]=auth["info"]["nickname"]   #ユーザー名
     session[:user_image]=auth["info"]["image"]        #ユーザーのアイコン画像URL
-
-   
     pp auth
 
- 
+
 =begin
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = 'cVC6GwGbXTVjbarYbswFJMOBW'
