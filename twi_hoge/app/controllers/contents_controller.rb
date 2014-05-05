@@ -29,8 +29,7 @@ class ContentsController < ApplicationController
 
 
   def rtline
-
-
+    
 
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = 'cVC6GwGbXTVjbarYbswFJMOBW'
@@ -43,7 +42,7 @@ class ContentsController < ApplicationController
     puts session[:oauth_token_secret]
     puts session[:uid]
     puts session[:account_name]
-
+    
     #options = {:count => 200,}
     options = {:count => 50,}
     #@retlist = client.retweeted_by_user("white_iceage000",options) 
