@@ -17,15 +17,15 @@
 
     <!--タイトル -->
     <a class="navbar-brand">RT Collection</a>
-
-    <!-- ログインユーザ表示 -->
-    <p class="navbar-brand"><%=image_tag(session[:user_image],:size => "25x25")%></p>
-    <p class="navbar-text navbar-right"><%= session[:account_name]%></p>
     
   </div>
   
   <!-- レスポンシブデザイン使用するメニュー-->
   <div style="height: 1px;" class="navbar-collapse navbar-responsive-collapse collapse">
+
+    <!-- ログインユーザ表示 -->
+    <p class="navbar-brand"><%=image_tag(session[:user_image],:size => "25x25")%></p>
+    <p class="navbar-text"><%= session[:account_name]%></p>
 
     <!--右側 -->
     <ul class="nav navbar-nav navbar-right">
