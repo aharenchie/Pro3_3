@@ -97,6 +97,15 @@ class ContentsController < ApplicationController
       end
 
 
+
+
+
+
+
+
+
+
+
 #ここまで
 
       #image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
@@ -120,7 +129,10 @@ class ContentsController < ApplicationController
 
 
       #models=TwiModel.all.reverse
+
+
       models=TwiModel.all.where(["uid=?",session[:uid]]).reverse
+      #models=TwiModel.all.where(["uid=?",session[:uid]]).limit(5).reverse
 
       print models
 
