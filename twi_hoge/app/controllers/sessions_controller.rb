@@ -11,7 +11,9 @@ class SessionsController < ApplicationController
     session[:oauth_token] = auth['credentials']['token']
     session[:oauth_token_secret] = auth['credentials']['secret']
     session[:uid]=auth["uid"]
-    session[:account_name]=auth["info"]["nickname"]
+    session[:account_name]=auth["info"]["nickname"]   #ユーザー名
+    session[:user_image]=auth["info"]["image"]        #ユーザーのアイコン画像URL
+
    
     pp auth
 
