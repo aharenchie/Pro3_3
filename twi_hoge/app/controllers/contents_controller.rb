@@ -8,7 +8,10 @@ class ContentsController < ApplicationController
   def index
   end
 
-
+  #ランキング予定地
+  def rtranking
+  end
+  
 
   def check
     #もしセッション変数user_idがなかったら

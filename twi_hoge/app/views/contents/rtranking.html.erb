@@ -45,23 +45,14 @@
     <!-- サイドバー-->
     <div class="col-md-2 col-lg-2 col-sm-2" >
       <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-	<li class="active"><a href="#">RT</a></li>
-	<li><a href="/contents/rtranking">RT ranking</a></li>
+	<li><a href="/contents/rtline">RT</a></li>
+	<li class="active"><a href="#">RT ranking</a></li>
       </ul>
     </div>
 
     <!--メイン-->
     <div class="col-md-8 col-lg-8 col-sm-8" >
-      <% @output.each do | status | %>
-      <div class="media">
-	<a class="pull-left"><%= image_tag(status["image"]) %></a>
-	<div class="media-body">
-	  <%= status["nickname"] %>
-	  <!--- 四角で囲む -->
-	  <div class="well"><%= auto_link(status["retweet"], html: { target: '_blank' }, link: :urls) %></div>
-	</div>
-      </div>
-      <% end %>
+     <h2> ランキングがでるかもー(o・∇・o)</h2>     
     </div>
     
   </div>
