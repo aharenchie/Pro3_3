@@ -18,22 +18,20 @@
     </button>
     
     <a class="navbar-brand">RT Collection</a>
+    <p class="navbar-brand"><%=image_tag(session[:user_image],:size => "25x25")%></p>
+    <p class="navbar-text navbar-right"><%= session[:account_name]%></p>
     
   </div>
   
   <!-- レスポンシブデザイン使用するメニュー-->
   <div style="height: 1px;" class="navbar-collapse navbar-responsive-collapse collapse">
   
-    <!-- 左側 -->
-    <ul class="nav navbar-nav">
-      <li><a href="#">RT</a></li>
-      <li><a href="#">RT Ranking</a></li>
-    </ul>
-    
     <!--右側 -->
     <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">RT</a></li>
+      <li><a href="#">RT Ranking</a></li>
       <li><a href="/">Home</a></li>
-      <li><a href="sessions/destroy">Sign out</a></li>
+      <li><a href="/sessions/destroy">Sign out</a></li>
     </ul>
 
   </div>
@@ -50,8 +48,8 @@
       <div class="media">
 	
 	<a class="pull-left"><%= image_tag(status["image"]) %></a>
-	
 	<div class="media-body">
+	  <%= status["nickname"] %>
 	  <!--- 四角で囲む -->
 	  <div class="well">
 	    <%= auto_link(status["retweet"], html: { target: '_blank' }, link: :urls) %>
