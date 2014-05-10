@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140505080135) do
 
-  create_table "models", force: true do |t|
-    t.string   "userid"
-    t.string   "tweetid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "twi_models", force: true do |t|
     t.string   "uid"
     t.string   "tweetid"
@@ -35,14 +28,5 @@ ActiveRecord::Schema.define(version: 20140505080135) do
 
   add_index "twi_models", ["tweetid"], name: "index_twi_models_on_tweetid"
   add_index "twi_models", ["uid"], name: "index_twi_models_on_uid"
-
-  create_table "users", force: true do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "screen_name"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end
