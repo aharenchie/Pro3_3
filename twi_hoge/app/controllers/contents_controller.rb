@@ -5,15 +5,13 @@ require "time"
 
 class ContentsController < ApplicationController
 
-  @badge
-  
   def index
   end
 
 
 
 
-  #ランキング予定地
+  #ランキング
   def rtranking
 
     #まず、データベースから情報引き出し
