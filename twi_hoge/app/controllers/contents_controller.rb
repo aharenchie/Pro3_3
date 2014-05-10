@@ -35,7 +35,7 @@ class ContentsController < ApplicationController
 
     #ユーザーのリツイートの多さをソートする。大きい順に並べる。返り値はリスト
 
-
+    #リツイートカウント数でソートする
     rankdata=rankdata.sort{|(k1, v1), (k2, v2)| v2[1] <=> v1[1] }
 
 
@@ -106,19 +106,29 @@ class ContentsController < ApplicationController
     puts session[:uid]
     puts session[:account_name]
 
-
-
     
-    options = {:count => 200,}
-    #options = {:count => 20,}
 
     print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    @retlist = client.retweeted_by_user(session[:account_id],options)
+
+
+    check_data=TwiModel.all.where(["uid=?",session[:uid]])
+    if check_data.length > 0 then
+      last_id=check_data.last(1)[0].rt_id
+      #print check_data.last(1)
+      #print check_data.last(1)[rt_id]
+      options = {:count => 200,:since_id =>last_id }
+      @retlist = client.retweeted_by_user(session[:account_id],options)
+    else
+      options = {:count => 200,}
+      @retlist = client.retweeted_by_user(session[:account_id],options)
+    end
+
 
     print "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
     #@retlistをリツイートされた時間順に、ツイートの古い順に並び替える
     @retlist=@retlist.sort{|a,b| Time.parse(a.attrs[:created_at])<=>Time.parse(b.attrs[:created_at])}    
+
 
 
 
