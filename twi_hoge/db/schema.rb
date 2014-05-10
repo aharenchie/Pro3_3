@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140505080135) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ret_nickname"
+    t.string   "rt_id"
   end
 
   add_index "twi_models", ["tweetid"], name: "index_twi_models_on_tweetid"
