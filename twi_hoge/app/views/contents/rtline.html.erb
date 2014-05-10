@@ -17,11 +17,6 @@
 
     <!--タイトル -->
     <a class="navbar-brand">RT Collection</a>
-
-    <!-- ログインユーザ表示
-    <p class="navbar-brand"><%=image_tag(session[:user_image],:size => "25x25")%></p>
-    <p class="navbar-text navbar-right"><%= session[:account_name]%></p>
-    -->
     
   </div>
   
@@ -29,14 +24,14 @@
   <div style="height: 1px;" class="navbar-collapse navbar-responsive-collapse collapse">
 
     <!-- ログインユーザ表示 -->
-    <p class="navbar-brand"><%=image_tag(session[:user_image],:size => "25x25")%></p>
-    <p class="navbar-text"><%= session[:account_name]%></p>
+    <p class="navbar-text"><%=image_tag(session[:user_image],:size => "25x25")%>
+   <%= session[:account_name]%></p>
 
 
     <!--右側 -->
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/">Home</a></li>
-      <li><a href="/sessions/destroy">Sign out</a></li>
+      <li><a href="/sessions/destroy">Logout</a></li>
     </ul>
 
   </div>
@@ -58,16 +53,20 @@
 
     <!--メイン-->
     <div class="col-md-8 col-lg-8 col-sm-8" >
-      <% @output.each do | status | %>
-      <div class="media">
-	<a class="pull-left"><%= image_tag(status["image"]) %></a>
-	<div class="media-body">
-	  <%= status["nickname"] %>
-	  <!--- 四角で囲む -->
-	  <div class="well"><%= auto_link(status["retweet"], html: { target: '_blank' }, link: :urls) %></div>
-	</div>
+      
+      <div class="list-group">
+	<% @output.each do | status | %>
+	<li class="list-group-item">
+	  <div class="media">
+	    <a class="pull-left"><%= image_tag(status["image"]) %></a>
+	    <div class="media-body">
+	      <h5 class="text-danger"><%= status["nickname"] %></h5>
+	      <p class="text-muted"><%= auto_link(status["retweet"], html: { target: '_blank' }, link: :urls) %></p>
+	    </div>
+	  </div>
+	</li>
+	<% end %>
       </div>
-      <% end %>
     </div>
     
   </div>

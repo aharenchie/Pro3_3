@@ -24,13 +24,12 @@
   <div style="height: 1px;" class="navbar-collapse navbar-responsive-collapse collapse">
 
     <!-- ログインユーザ表示 -->
-    <p class="navbar-brand"><%=image_tag(session[:user_image],:size => "25x25")%></p>
-    <p class="navbar-text"><%= session[:account_name]%></p>
+    <p class="navbar-text"><%=image_tag(session[:user_image],:size => "25x25")%> <%= session[:account_name]%></p>
 
     <!--右側 -->
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/">Home</a></li>
-      <li><a href="/sessions/destroy">Sign out</a></li>
+      <li><a href="/sessions/destroy">Logout</a></li>
     </ul>
 
   </div>
