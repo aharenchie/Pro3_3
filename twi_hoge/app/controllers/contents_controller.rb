@@ -54,8 +54,8 @@ class ContentsController < ApplicationController
 =begin
 @rankの構成
 １位：rank[0]["id"]でユーザー名、rank[0]["image"]で画像イメージ、rank[0]["count"]でリツイートカウント
-２位：rank[1]["id"]でユーザー名、rank[1]["image"]で画像イメージ、rank[2]["count"]でリツイートカウント
-３位：rank[2]["id"]でユーザー名、rank[2]["image"]で画像イメージ、rank[3]["count"]でリツイートカウント
+２位：rank[1]["id"]でユーザー名、rank[1]["image"]で画像イメージ、rank[1]["count"]でリツイートカウント
+３位：rank[2]["id"]でユーザー名、rank[2]["image"]で画像イメージ、rank[2]["count"]でリツイートカウント
 
 =end
 
@@ -91,8 +91,6 @@ class ContentsController < ApplicationController
   def rtline
     
 
-    print "hugahugaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-
 
 
     client = Twitter::REST::Client.new do |config|
@@ -109,8 +107,6 @@ class ContentsController < ApplicationController
 
     
 
-    print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
 
     check_data=TwiModel.all.where(["uid=?",session[:uid]])
     if check_data.length > 0 then
@@ -125,7 +121,6 @@ class ContentsController < ApplicationController
     end
 
 
-    print "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
     #@retlistをリツイートされた時間順に、ツイートの古い順に並び替える
     @retlist=@retlist.sort{|a,b| Time.parse(a.attrs[:created_at])<=>Time.parse(b.attrs[:created_at])}    
@@ -142,7 +137,6 @@ class ContentsController < ApplicationController
     @retlist.each do | status |
 
 
-      print "hogehogehogehogehoge!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
 
 #ここからはデータベース操作
