@@ -5,15 +5,13 @@ require "time"
 
 class ContentsController < ApplicationController
 
-  @badge
-  
   def index
   end
 
 
 
 
-  #ランキング予定地
+  #ランキング
   def rtranking
 
     #まず、データベースから情報引き出し
@@ -40,7 +38,6 @@ class ContentsController < ApplicationController
     @rank[rankdata[0][0]]=rankdata[0][1]
     @rank[rankdata[1][0]]=rankdata[1][1]
     @rank[rankdata[2][0]]=rankdata[2][1]
-
     
     print @rank
 

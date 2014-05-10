@@ -44,14 +44,16 @@
     <!-- サイドバー-->
     <div class="col-md-2 col-lg-2 col-sm-2" >
       <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-	<li><a href="/contents/rtline">RT</span></a></li>
+	<li><a href="/contents/rtline">RT  <span class="badge"><%=@badge%></span></a></li>
 	<li class="active"><a href="#">RT ranking</a></li>
       </ul>
     </div>
 
     <!--メイン-->
     <div class="col-md-8 col-lg-8 col-sm-8" >
-     <h2> ランキングがでるかもー(o・∇・o)</h2>     
+      <% @rank.each do | ranks | %>
+     <h2></h2>     
+     <% end %>
     </div>
     
   </div>
