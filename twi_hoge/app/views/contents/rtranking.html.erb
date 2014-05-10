@@ -51,9 +51,39 @@
 
     <!--メイン-->
     <div class="col-md-8 col-lg-8 col-sm-8" >
-      <% @rank.each do | ranks | %>
-     <h2></h2>     
-     <% end %>
+      
+      <h1>ここにタイトル書きたい</h1>
+
+      <div class="alert alert-dismissable alert-warning">
+	<h4>Warning!</h4>
+	<p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
+      </div>
+
+
+      <div class="media">
+        <a class="pull-left"></a>
+	<p class="pull-right">リツイート回数:<%=@rank[0][1]%></p>
+        <div class="media-body">
+          <h5 class="text-danger"><%=@rank[0][0]%></h5>
+	</div>
+      </div>
+      
+      <div class="media">
+	<a class="pull-left"></a>
+	<p class="pull-right">リツイート回数:<%=@rank[1][1]%></p>
+	<div class="media-body">
+          <h5 class="text-danger"><%=@rank[1][0]%></h5>
+	</div>
+      </div>
+      
+      <div class="media">
+	<a class="pull-left"></a>
+	<p class="pull-right">リツイート回数:<%=@rank[2][1]%></p>
+	<div class="media-body">
+          <h5 class="text-danger"><%=@rank[2][0]%></h5>
+ 	</div>
+      </div>
+    
     </div>
     
   </div>

@@ -33,6 +33,7 @@ class ContentsController < ApplicationController
     #ユーザーのリツイートの多さをソートする。大きい順に並べる。返り値はリスト
     rankdata=rankdata.sort_by{|key, value| value}.reverse 
 
+
     #上位３位を求める
     @rank=Array.new
 
