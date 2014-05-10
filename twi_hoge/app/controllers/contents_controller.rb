@@ -5,6 +5,7 @@ require "time"
 
 class ContentsController < ApplicationController
 
+
   def index
   end
 
@@ -17,6 +18,11 @@ class ContentsController < ApplicationController
     #まず、データベースから情報引き出し
     models=TwiModel.all.where(["uid=?",session[:uid]])
 
+    #badge表示用
+    @badge = models.length
+    if models.length > 1000
+      @badge = 1000
+    end
 
     #ハッシュ作成。ハッシュの構成は{"username"=>[image_url,RT_count]}
  
