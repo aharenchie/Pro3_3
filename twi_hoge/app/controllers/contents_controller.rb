@@ -86,6 +86,7 @@ class ContentsController < ApplicationController
       #hoge=TwiModel.new
 
       if TwiModel.where(["uid = ? and tweetid = ?", uid,tid ]).empty?
+
         model_data=TwiModel.new
         model_data.uid = status.attrs[:user][:id]
         model_data.tweetid = status.attrs[:retweeted_status][:id] 
@@ -165,7 +166,7 @@ class ContentsController < ApplicationController
         @output.push(data)
       end
 
-      @output.reverse
+     @output.reverse
 
   end 
 
