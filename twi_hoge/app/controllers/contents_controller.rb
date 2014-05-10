@@ -5,7 +5,8 @@ require "time"
 
 class ContentsController < ApplicationController
 
-
+  @badge
+  
   def index
   end
 
@@ -122,6 +123,7 @@ class ContentsController < ApplicationController
 
 
       if TwiModel.where(["uid = ? and tweetid = ?", uid,tid ]).empty?
+
         model_data=TwiModel.new
         model_data.uid = status.attrs[:user][:id]
         model_data.tweetid = status.attrs[:retweeted_status][:id] 
@@ -170,20 +172,21 @@ class ContentsController < ApplicationController
 
 
 
+      @badge = record.length
       #ここからは上限から超えた分のデータを消去　 
       if record.length > 1000
+        @badge = 1000
         del_count=record.length-1000
         #record.limit(del_count).delete_all 
         #TwiModel.delete_all.where(["uid=?",session[:uid]]).limit(del_count)
         #TwiModel.where(["uid=?",session[:uid]]).delete_all.limit(del_count)
+      
 
-
-        #これが消去するための記述？ でも、逆向きに消去されてしまう　
-        TwiModel.delete(TwiModel.where(:uid => session[:uid]).limit(del_count))
-      end
-
-
-
+      #これが消去するための記述？ でも、逆向きに消去されてしまう　
+      TwiModel.delete(TwiModel.where(:uid => session[:uid]).limit(del_count))
+    end
+    
+  
 
       #取得したレコードをリバース（データベース格納のための整理)
       #models=record.reverse
