@@ -9,9 +9,47 @@ class ContentsController < ApplicationController
   def index
   end
 
+
+
+
   #ランキング予定地
   def rtranking
+
+    #まず、データベースから情報引き出し
+    models=TwiModel.all.where(["uid=?",session[:uid]])
+
+    #ハッシュ作成。これには、どのユーザーに対するリツイートが何件あるかを記録する。ハッシュのキーがユーザー名、値がリツイートの件数
+    rankdata=Hash.new
+
+    models.each do | i |
+      #そのユーザーがハッシュのキーに存在しない場合は新規に割り当てる。件数を１とする
+      if not rankdata.key?(i.ret_nickname) then    
+        rankdata[i.ret_nickname]=1   
+      else
+      #ハッシュに存在しない場合は、インクリメント。+1する 
+      rankdata[i.ret_nickname]+=1 
+      end
+    end
+
+    #ユーザーのリツイートの多さをソートする。大きい順に並べる。返り値はリスト
+    rankdata=rankdata.sort_by{|key, value| value}.reverse 
+
+    #上位３位を求める
+    @rank=Hash.new
+    @rank[rankdata[0][0]]=rankdata[0][1]
+    @rank[rankdata[1][0]]=rankdata[1][1]
+    @rank[rankdata[2][0]]=rankdata[2][1]
+
+    
+    print @rank
+
+
+
   end
+
+
+
+
   
 
   def check
@@ -47,8 +85,8 @@ class ContentsController < ApplicationController
     puts session[:uid]
     puts session[:account_name]
     
-    #options = {:count => 200,}
-    options = {:count => 20,}
+    options = {:count => 200,}
+    #options = {:count => 20,}
 
 
     @retlist = client.retweeted_by_user(session[:account_id],options)
@@ -133,8 +171,8 @@ class ContentsController < ApplicationController
 
 
       #ここからは上限から超えた分のデータを消去　 
-      if record.length > 20 
-        del_count=record.length-20
+      if record.length > 1000
+        del_count=record.length-1000
         #record.limit(del_count).delete_all 
         #TwiModel.delete_all.where(["uid=?",session[:uid]]).limit(del_count)
         #TwiModel.where(["uid=?",session[:uid]]).delete_all.limit(del_count)
@@ -151,7 +189,7 @@ class ContentsController < ApplicationController
       #models=record.reverse
       models=TwiModel.all.where(["uid=?",session[:uid]]).reverse
 
-      print models
+      #print models
 
 
       models.each do | i |
