@@ -5,45 +5,62 @@ require "time"
 
 class ContentsController < ApplicationController
 
-  @badge
-  
   def index
   end
 
 
 
 
-  #ランキング予定地
+  #ランキング
   def rtranking
 
     #まず、データベースから情報引き出し
     models=TwiModel.all.where(["uid=?",session[:uid]])
 
-    #ハッシュ作成。これには、どのユーザーに対するリツイートが何件あるかを記録する。ハッシュのキーがユーザー名、値がリツイートの件数
+
+    #ハッシュ作成。ハッシュの構成は{"username"=>[image_url,RT_count]}
+ 
     rankdata=Hash.new
+
 
     models.each do | i |
       #そのユーザーがハッシュのキーに存在しない場合は新規に割り当てる。件数を１とする
       if not rankdata.key?(i.ret_nickname) then    
-        rankdata[i.ret_nickname]=1   
+        rankdata[i.ret_nickname]=[i.image,1]  
       else
       #ハッシュに存在しない場合は、インクリメント。+1する 
-      rankdata[i.ret_nickname]+=1 
+      rankdata[i.ret_nickname][1]+=1 
       end
     end
 
     #ユーザーのリツイートの多さをソートする。大きい順に並べる。返り値はリスト
-    rankdata=rankdata.sort_by{|key, value| value}.reverse 
+
+    #リツイートカウント数でソートする
+    rankdata=rankdata.sort{|(k1, v1), (k2, v2)| v2[1] <=> v1[1] }
+
+
 
     #上位３位を求める
-    @rank=Hash.new
-    @rank[rankdata[0][0]]=rankdata[0][1]
-    @rank[rankdata[1][0]]=rankdata[1][1]
-    @rank[rankdata[2][0]]=rankdata[2][1]
+    @rank=Array.new
 
-    
+    3.times{|i|
+      data=Hash.new
+      data["id"]=rankdata[i][0]
+      data["image"]=rankdata[i][1][0]
+      data["count"]=rankdata[i][1][1]
+      @rank.push(data) 
+    }
+
+=begin
+@rankの構成
+１位：rank[0]["id"]でユーザー名、rank[0]["image"]で画像イメージ、rank[0]["count"]でリツイートカウント
+２位：rank[1]["id"]でユーザー名、rank[1]["image"]で画像イメージ、rank[2]["count"]でリツイートカウント
+３位：rank[2]["id"]でユーザー名、rank[2]["image"]で画像イメージ、rank[3]["count"]でリツイートカウント
+
+=end
+
+
     print @rank
-
 
 
   end
@@ -74,6 +91,10 @@ class ContentsController < ApplicationController
   def rtline
     
 
+    print "hugahugaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
+
+
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = 'cVC6GwGbXTVjbarYbswFJMOBW'
       config.consumer_secret     = 'ZwuMkmOrhVwMmx4YkNiyFVV0slyqwOVQA9KZQxUvyTvBhO0CRl'
@@ -85,16 +106,30 @@ class ContentsController < ApplicationController
     puts session[:oauth_token_secret]
     puts session[:uid]
     puts session[:account_name]
+
     
-    options = {:count => 200,}
-    #options = {:count => 20,}
+
+    print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 
-    @retlist = client.retweeted_by_user(session[:account_id],options)
+    check_data=TwiModel.all.where(["uid=?",session[:uid]])
+    if check_data.length > 0 then
+      last_id=check_data.last(1)[0].rt_id
+      #print check_data.last(1)
+      #print check_data.last(1)[rt_id]
+      options = {:count => 200,:since_id =>last_id }
+      @retlist = client.retweeted_by_user(session[:account_id],options)
+    else
+      options = {:count => 200,}
+      @retlist = client.retweeted_by_user(session[:account_id],options)
+    end
 
+
+    print "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
     #@retlistをリツイートされた時間順に、ツイートの古い順に並び替える
     @retlist=@retlist.sort{|a,b| Time.parse(a.attrs[:created_at])<=>Time.parse(b.attrs[:created_at])}    
+
 
 
 
@@ -106,14 +141,8 @@ class ContentsController < ApplicationController
 
     @retlist.each do | status |
 
-      #text = status[:full_text]
 
-=begin
-      @tw_data=Hash.new
-      @tw_data["uid"]=status.attrs[:user][:id]
-      @tw_data["tweet_id"]=status.attrs[:retweeted_status][:id]      
-      @tweet_info.push(@tw_data)
-=end
+      print "hogehogehogehogehoge!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
 
 #ここからはデータベース操作
@@ -132,37 +161,15 @@ class ContentsController < ApplicationController
         model_data.image= status.attrs[:retweeted_status][:user][:profile_image_url]
         model_data.text= status.attrs[:retweeted_status][:text]
         model_data.ret_nickname= status.attrs[:retweeted_status][:user][:screen_name]
-
+        model_data.rt_id=status.attrs[:id]
 
         model_data.save 
       end
 
 
-
-
 #ここまで
 
-      #image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
-
-
-=begin
-      data=Hash.new
-      data["retweet"]=text  
-      data["image"]=image_url
-
-      @output.push(data) 
-=end 
     end
-
-#    print @tweet_info
-
-      #models=Model.find(:all)
-      #model=Model.new
-
-
-
-
-      #models=TwiModel.all.reverse
 
 
       #レコードを取得
@@ -192,8 +199,6 @@ class ContentsController < ApplicationController
       #models=record.reverse
       models=TwiModel.all.where(["uid=?",session[:uid]]).reverse
 
-      #print models
-
 
       models.each do | i |
         data=Hash.new
@@ -204,11 +209,8 @@ class ContentsController < ApplicationController
         @output.push(data)
       end
 
-      #@output.reverse
 
   end 
-
- 
 
 
 end
