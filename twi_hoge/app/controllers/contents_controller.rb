@@ -36,11 +36,27 @@ class ContentsController < ApplicationController
     rankdata=rankdata.sort_by{|key, value| value}.reverse 
 
     #上位３位を求める
-    @rank=Hash.new
+    @rank=Array.new
+
+    @rank[0]=rankdata[0]
+    @rank[1]=rankdata[1]
+    @rank[2]=rankdata[2]
+
+=begin
+  @rank[0][0]で１位のユーザー名、@rank[0][1]が１位のカウント
+  @rank[1][0]で２位のユーザー名、@rank[1][1]が２位のカウント
+
+
+
+=end
+
+
+
+=begin
     @rank[rankdata[0][0]]=rankdata[0][1]
     @rank[rankdata[1][0]]=rankdata[1][1]
     @rank[rankdata[2][0]]=rankdata[2][1]
-
+=end
     
     print @rank
 
@@ -74,6 +90,10 @@ class ContentsController < ApplicationController
   def rtline
     
 
+    print "hugahugaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
+
+
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = 'cVC6GwGbXTVjbarYbswFJMOBW'
       config.consumer_secret     = 'ZwuMkmOrhVwMmx4YkNiyFVV0slyqwOVQA9KZQxUvyTvBhO0CRl'
@@ -90,8 +110,11 @@ class ContentsController < ApplicationController
     #options = {:count => 20,}
 
 
+
+    print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     @retlist = client.retweeted_by_user(session[:account_id],options)
 
+    print "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
     #@retlistをリツイートされた時間順に、ツイートの古い順に並び替える
     @retlist=@retlist.sort{|a,b| Time.parse(a.attrs[:created_at])<=>Time.parse(b.attrs[:created_at])}    
@@ -106,14 +129,8 @@ class ContentsController < ApplicationController
 
     @retlist.each do | status |
 
-      #text = status[:full_text]
 
-=begin
-      @tw_data=Hash.new
-      @tw_data["uid"]=status.attrs[:user][:id]
-      @tw_data["tweet_id"]=status.attrs[:retweeted_status][:id]      
-      @tweet_info.push(@tw_data)
-=end
+      print "hogehogehogehogehoge!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
 
 #ここからはデータベース操作
@@ -138,31 +155,9 @@ class ContentsController < ApplicationController
       end
 
 
-
-
 #ここまで
 
-      #image_url=status.attrs[:retweeted_status][:user][:profile_image_url]
-
-
-=begin
-      data=Hash.new
-      data["retweet"]=text  
-      data["image"]=image_url
-
-      @output.push(data) 
-=end 
     end
-
-#    print @tweet_info
-
-      #models=Model.find(:all)
-      #model=Model.new
-
-
-
-
-      #models=TwiModel.all.reverse
 
 
       #レコードを取得
@@ -192,8 +187,6 @@ class ContentsController < ApplicationController
       #models=record.reverse
       models=TwiModel.all.where(["uid=?",session[:uid]]).reverse
 
-      #print models
-
 
       models.each do | i |
         data=Hash.new
@@ -204,11 +197,8 @@ class ContentsController < ApplicationController
         @output.push(data)
       end
 
-      #@output.reverse
 
   end 
-
- 
 
 
 end
