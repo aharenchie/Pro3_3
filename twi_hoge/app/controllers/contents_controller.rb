@@ -1,5 +1,6 @@
 # encoding: UTF-8
 
+require "time"
 
 
 class ContentsController < ApplicationController
@@ -14,13 +15,13 @@ class ContentsController < ApplicationController
   
 
   def check
-    #もしセッション変数user_idがなかったら
+    #もしセッション変数user_idがなかったら、auth/twitterへ飛ぶ。auth/twitterからsessionコントローラーへ飛ぶ
     #if defined?(session[:account_id]).nil? then
     if session[:uid].nil? then
       redirect_to '/auth/twitter'
 
     else
-    #もしuser_idが存在してたら
+    #もしuser_idが存在してたら,rtlineへ飛ぶ
 
       redirect_to '/contents/rtline', :notice => "認証しました！"
 
@@ -47,9 +48,16 @@ class ContentsController < ApplicationController
     puts session[:account_name]
     
     #options = {:count => 200,}
-    options = {:count => 50,}
-    #@retlist = client.retweeted_by_user("white_iceage000",options) 
-    @retlist = client.retweeted_by_user(session[:account_id],options).reverse
+    options = {:count => 20,}
+
+
+    @retlist = client.retweeted_by_user(session[:account_id],options)
+
+
+    #@retlistをリツイートされた時間順に、ツイートの古い順に並び替える
+    @retlist=@retlist.sort{|a,b| Time.parse(a.attrs[:created_at])<=>Time.parse(b.attrs[:created_at])}    
+
+
 
 
     @output=Array.new
@@ -74,16 +82,6 @@ class ContentsController < ApplicationController
       tid= status.attrs[:retweeted_status][:id]
 
 
-=begin
-      t.string :uid
-      t.string :tweetid
-      t.string :time
-      t.string :re_uid
-      t.string :image
-      t.text :text
-=end
-
-      #hoge=TwiModel.new
 
       if TwiModel.where(["uid = ? and tweetid = ?", uid,tid ]).empty?
         model_data=TwiModel.new
@@ -135,7 +133,7 @@ class ContentsController < ApplicationController
 
 
       #ここからは上限から超えた分のデータを消去　 
-      if record.length > 20
+      if record.length > 20 
         del_count=record.length-20
         #record.limit(del_count).delete_all 
         #TwiModel.delete_all.where(["uid=?",session[:uid]]).limit(del_count)
@@ -143,7 +141,7 @@ class ContentsController < ApplicationController
 
 
         #これが消去するための記述？ でも、逆向きに消去されてしまう　
-        #TwiModel.delete(TwiModel.where(:uid => session[:uid]).reverse_order.limit(del_count))
+        TwiModel.delete(TwiModel.where(:uid => session[:uid]).limit(del_count))
       end
 
 
@@ -165,7 +163,7 @@ class ContentsController < ApplicationController
         @output.push(data)
       end
 
-      @output.reverse
+      #@output.reverse
 
   end 
 
