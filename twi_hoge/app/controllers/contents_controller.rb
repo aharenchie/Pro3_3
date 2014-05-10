@@ -39,6 +39,7 @@ class ContentsController < ApplicationController
     rankdata=rankdata.sort{|(k1, v1), (k2, v2)| v2[1] <=> v1[1] }
 
 
+
     #上位３位を求める
     @rank=Array.new
 
