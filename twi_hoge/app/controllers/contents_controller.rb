@@ -127,14 +127,14 @@ class ContentsController < ApplicationController
 
 
       #レコードを取得
-      record=TwiModel.all.where(["uid=?",session[:uid]])
+      @record=TwiModel.all.where(["uid=?",session[:uid]])
 
      
 
 
 
       #ここからは上限から超えた分のデータを消去　 
-      if record.length > 20 
+      if @record.length > 20 
         del_count=record.length-20
         #record.limit(del_count).delete_all 
         #TwiModel.delete_all.where(["uid=?",session[:uid]]).limit(del_count)
