@@ -34,27 +34,33 @@ class ContentsController < ApplicationController
       if not rankdata.key?(i.ret_nickname) then    
         rankdata[i.ret_nickname]=[i.image,1]  
       else
-      #ハッシュに存在しない場合は、インクリメント。+1する 
+        #ハッシュに存在しない場合は、インクリメント。+1する 
       rankdata[i.ret_nickname][1]+=1 
       end
     end
-
+    
     #ユーザーのリツイートの多さをソートする。大きい順に並べる。返り値はリスト
 
     #リツイートカウント数でソートする
     rankdata=rankdata.sort{|(k1, v1), (k2, v2)| v2[1] <=> v1[1] }
 
-
+    if rankdata.length < 3 then
+      loop = rankdata.length
+    else
+      loop = 3
+      puts loop
+    end
+    
 
     #上位３位を求める
     @rank=Array.new
-
-    3.times{|i|
-      data=Hash.new
-      data["id"]=rankdata[i][0]
-      data["image"]=rankdata[i][1][0]
-      data["count"]=rankdata[i][1][1]
-      @rank.push(data) 
+    
+    loop.times{|i|
+        data=Hash.new
+        data["id"]=rankdata[i][0]
+        data["image"]=rankdata[i][1][0]
+        data["count"]=rankdata[i][1][1]
+        @rank.push(data) 
     }
 
 =begin
@@ -64,9 +70,6 @@ class ContentsController < ApplicationController
 ３位：rank[2]["id"]でユーザー名、rank[2]["image"]で画像イメージ、rank[2]["count"]でリツイートカウント
 
 =end
-
-
-    print @rank
 
 
   end

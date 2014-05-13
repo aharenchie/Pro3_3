@@ -55,36 +55,20 @@
       <p>あなたがよくリツイートしているアカウントランキングです！</p>
       </br>
       
-      <div class="alert alert-dismissable alert-danger">
-	<div class="media">
-          <h2 class="pull-left text-primary">1位</h2>
-          <div class="media-body">
-	    <h2><%=image_tag(@rank[0]["image"],:size => "75x75")%> <%=@rank[0]["id"]%></h2>
-	    <h5>リツイート回数: <%=@rank[0]["count"]%>回</h5>
-	  </div>
-	</div>
-      </div>      
 
-      <div class="alert alert-dismissable alert-warning">
-	<div class="media">
-          <h3 class="pull-left text-primary">2位</h3>
-          <div class="media-body">
-            <h3><%=image_tag(@rank[1]["image"],:size => "50x50")%> <%=@rank[1]["id"]%></h3>
-            <h5>リツイート回数: <%=@rank[1]["count"]%>回</h5>
-          </div>
-	</div>
-      </div>
-      
-      <div class="well">
-        <div class="media">
-          <h4 class="pull-left text-primary">3位</h4>
-          <div class="media-body">
-            <h4><%=image_tag(@rank[2]["image"],:size => "25x25")%> <%=@rank[2]["id"]%></h4>
-            <h6>リツイート回数: <%=@rank[2]["count"]%>回</h6>
-          </div>
-	</div>
-      </div>
-      
+	<% @rank.each_with_index do | status , m | %>
+	<div class="alert alert-dismissable alert-warning">
+	  <div class="media">
+	    <h2 class="pull-left text-primary"><%=(m+1)%>位</h2>
+	    <div class="media-body">
+	        <h3><%=image_tag(status["image"],:size => "50x50")%> <%=status["id"]%></h3>
+	      <h5>リツイート回数: <%=status["count"]%>回</h5>
+	    </div>
+	  </div>
+	  </div>
+	<% end %>
+
+	
     </div>
     
   </div>
