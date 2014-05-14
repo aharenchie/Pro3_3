@@ -16,7 +16,7 @@ class ContentsController < ApplicationController
   def rtranking
 
     #まず、データベースから情報引き出し
-    models=TwiModel.all.where(["uid=?",session[:uid]])
+    models=TwiModel.all.where(["uid=?",session[:uid]]).reverse
 
     #badge表示用
     @badge = models.length
